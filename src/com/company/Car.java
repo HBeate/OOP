@@ -22,7 +22,7 @@ public class Car {
     }
 
     public void turboBoost() {
-        if (fuelLevel >= fuelCapacity * .1) {
+        if (fuelLevel > fuelCapacity * .1) {
             System.out.println("SuperBoostMode");
         } else {
             System.out.println("Not enough fuel to go to Superboost");
