@@ -10,12 +10,16 @@ public class Main {
         car1.color = "Dark Blue";
         car1.fuelCapacity = 70;
         car1.fuelConsumption = 7;
-        car1.fuelLevel = 4;
+        car1.fuelLevel = 40;
 
         car1.drive();
+        car1.getRemainingRange();
         car1.turboBoost();
         car1.carBreaks();
-        car1.honk(5);
+        car1.honk(3);
+        car1.drive();
+        car1.getRemainingRange();
+        car1.drive();
 
     }
 }

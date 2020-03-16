@@ -11,10 +11,12 @@ public class Car {
     double fuelCapacity;
     double fuelConsumption;
     double fuelLevel;
-
+    double range;
 
     public void drive() {
-        System.out.println("I'm driving");
+
+        System.out.println("I'm driving. (fuel level) " + fuelLevel);
+        fuelLevel = fuelLevel - fuelConsumption;
     }
 
     public void carBreaks() {
@@ -31,10 +33,15 @@ public class Car {
 
     public void honk(int amountoOfRepetitions) {
         for (int i = 0; i < amountoOfRepetitions; i++) {
-            System.out.print("Tuuut");
-
-
+            System.out.println("Tuuut");
         }
+    }
 
+    public void getRemainingRange() {
+        double range = Math.round(((this.fuelLevel / this.fuelConsumption) * 100));
+
+        System.out.println("You can drive " + range + " kilometers before your next fill up.");
     }
 }
+
+//    double remainingRange = round((this.fuel / this.fuelConsumption) * 100);
