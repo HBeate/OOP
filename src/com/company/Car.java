@@ -1,48 +1,50 @@
 package com.company;
 
-import javax.swing.*;
-
+import static java.lang.Math.max;
 import static java.lang.Math.round;
 
 public class Car {
 
-
-    String brand;
+    private Engine engine;
+    private FuelTank fuelTank;
+    private String brand;
     private String model;
     private String color;
     private String serialNumber;
-    private double fuelCapacity;
+    //private double fuelCapacity;
     private double fuelConsumption;
     private double fuelLevel;
     private double range;
 
     //Konstructor - hier kommen die Pflichtfelder, wird bei jedem neuen Objekt nur am Anfang einmal aufgerufen
-    public Car(String brand, String model, String color, String serialNumber, double fuelCapacity, double fuelConsumption,
-               double fuelLevel) {
+    public Car(Engine engine, String brand, String model, String color, String serialNumber, double fuelCapacity, double fuelConsumption,
+               double fuelLevel, FuelTank fuelTank) {
+        this.engine = engine;
         this.brand = brand;
         this.model = model;
         this.color = color;
         this.serialNumber = serialNumber;
-        this.fuelCapacity = fuelCapacity;
+        this.fuelTank = fuelTank;
+        //this.fuelCapacity = fuelCapacity;
         this.fuelConsumption = fuelConsumption;
         this.fuelLevel = fuelLevel;
     }
 
     // Encapsulation
+
+    public Engine getEngine() {
+        return engine;
+    }
+    public FuelTank getFuelTank(){
+        return fuelTank;
+    }
+
     public String getBrand() {
         return brand;
     }
 
-    public void setBrand(String brnd) {
-        this.brand = brand;
-    }
-
     public String getModel() {
         return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
     }
 
     public String getColor() {
@@ -57,25 +59,10 @@ public class Car {
         return serialNumber;
     }
 
-    public void setSerialNumber(String serialNumber) {
-        this.serialNumber = serialNumber;
-    }
-
-    public double getFuelCapacity() {
-        return fuelCapacity;
-    }
-
-    public void setFuelCapacity(double fuelCapacity) {
-        this.fuelCapacity = fuelCapacity;
-    }
-
     public double getFuelConsumption() {
         return fuelConsumption;
     }
 
-    public void setFuelConsumption(double fuelConsumption) {
-        this.fuelConsumption = fuelConsumption;
-    }
 
     public double getFuelLevel() {
         return fuelLevel;
@@ -94,10 +81,40 @@ public class Car {
     }
 
     // Methods
-    public void drive() {
+    public void drive(double speed) {
+        double restLiters = fuelTank.getRestLiters();
+        if(restLiters >= fuelConsumption) {
+            System.out.println("Ich bin ein " + this.brand + ", habe die Farbe " + this.color + " und habe " + this.getEngine().getHorsePower() + " horse power.");
+            System.out.println("I'm driving. (fuel level before driving) " + restLiters);
+            //fuelLevel = fuelLevel - fuelConsumption;
+            fuelTank.consumeLiters(fuelConsumption);
+            restLiters = fuelTank.getRestLiters();
+            System.out.println("Noch " + restLiters + "L verfügbar!");
 
-        System.out.println("I'm driving. (fuel level before driving) " + fuelLevel);
-        fuelLevel = fuelLevel - fuelConsumption;
+            int maxSpeed = this.getEngine().getMaxSpeed();
+            if(maxSpeed > speed){
+                double percentOfMax = speed * 100 / maxSpeed;
+
+                if(percentOfMax >= 90.0){
+                    System.out.println("molbackk boda schnell");
+                } else if(percentOfMax >= 50.0 && percentOfMax < 90.0) {
+                    System.out.println("normal drive");
+                }else if(percentOfMax >=30.0 && percentOfMax < 50.0){
+                    System.out.println("gutes Tempo");
+                }else if (percentOfMax >= 0.0 && percentOfMax < 30.0){
+                    System.out.println("Gib Gas, du Schnecke");
+                }
+            }
+            /*if ((this.getEngine().getMaxSpeed() > 0) && (this.getEngine().getMaxSpeed() <= 30)) {
+                System.out.println("You are driving qiute slowly - below 30 km/h.");
+            } else if ((this.getEngine().getMaxSpeed() > 30) && (this.getEngine().getMaxSpeed() <= 60)) {
+                System.out.println("You are driving guite fast, between 30 and 60 km/h");
+            } else if ((this.getEngine().getMaxSpeed() > 60) && (this.getEngine().getMaxSpeed() <= 100)) {
+                System.out.println("You are driving faster than 60 km/h");
+            }*/
+        } else{
+            System.out.println("go fuel");
+        }
     }
 
     public void carBreaks() {
@@ -105,7 +122,7 @@ public class Car {
     }
 
     public void turboBoost() {
-        if (fuelLevel > fuelCapacity * .1) {
+        if (fuelLevel > fuelTank.getCapacityLiters() * .1) {
             System.out.println("SuperBoostMode");
         } else {
             System.out.println("Not enough fuel to go to Superboost");
