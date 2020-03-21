@@ -13,7 +13,7 @@ public class FuelTank {
         return capacityLiters;
     }
 
-    public void consumeLiters(double usedLiters){
+    public void consumeLiters(double usedLiters) {
         this.actualLiters += usedLiters;
     }
 

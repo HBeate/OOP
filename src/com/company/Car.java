@@ -1,17 +1,22 @@
 package com.company;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import static java.lang.Math.max;
 import static java.lang.Math.round;
 
 public class Car {
 
     private Engine engine;
+    private List<RearMirror> mirrors;
+    private List<Tire> tires;
     private FuelTank fuelTank;
     private String brand;
     private String model;
     private String color;
     private String serialNumber;
-    //private double fuelCapacity;
     private double fuelConsumption;
     private double fuelLevel;
     private double range;
@@ -25,9 +30,44 @@ public class Car {
         this.color = color;
         this.serialNumber = serialNumber;
         this.fuelTank = fuelTank;
-        //this.fuelCapacity = fuelCapacity;
         this.fuelConsumption = fuelConsumption;
         this.fuelLevel = fuelLevel;
+        this.mirrors = new ArrayList<>();
+        this.tires = new ArrayList<>();
+    }
+
+    public void addMirror(RearMirror rearMirror) {
+        this.mirrors.add(rearMirror);
+    }
+
+    public void addTire(Tire tire) {
+        this.tires.add(tire);
+    }
+
+    public void addTires(Tire tire1, Tire tire2, Tire tire3, Tire tire4) {
+        this.tires.add(tire1);
+        this.tires.add(tire2);
+        this.tires.add(tire3);
+        this.tires.add(tire4);
+    }
+
+    public void addFourTires(Tire tire) {
+        this.tires.add(tire);
+        this.tires.add(tire);
+        this.tires.add(tire);
+        this.tires.add(tire);
+    }
+
+    public List<RearMirror> getMirrors() {
+        return mirrors;
+    }
+
+    public List<Tire> getTires() {
+        return tires;
+    }
+
+    public List<Tire> getFourTires() {
+        return tires;
     }
 
     // Encapsulation
@@ -35,7 +75,8 @@ public class Car {
     public Engine getEngine() {
         return engine;
     }
-    public FuelTank getFuelTank(){
+
+    public FuelTank getFuelTank() {
         return fuelTank;
     }
 
@@ -63,7 +104,6 @@ public class Car {
         return fuelConsumption;
     }
 
-
     public double getFuelLevel() {
         return fuelLevel;
     }
@@ -83,36 +123,29 @@ public class Car {
     // Methods
     public void drive(double speed) {
         double restLiters = fuelTank.getRestLiters();
-        if(restLiters >= fuelConsumption) {
+        if (restLiters >= fuelConsumption) {
             System.out.println("Ich bin ein " + this.brand + ", habe die Farbe " + this.color + " und habe " + this.getEngine().getHorsePower() + " horse power.");
             System.out.println("I'm driving. (fuel level before driving) " + restLiters);
-            //fuelLevel = fuelLevel - fuelConsumption;
             fuelTank.consumeLiters(fuelConsumption);
             restLiters = fuelTank.getRestLiters();
             System.out.println("Noch " + restLiters + "L verfügbar!");
 
             int maxSpeed = this.getEngine().getMaxSpeed();
-            if(maxSpeed > speed){
+            if (maxSpeed > speed) {
                 double percentOfMax = speed * 100 / maxSpeed;
 
-                if(percentOfMax >= 90.0){
+                if (percentOfMax >= 90.0) {
                     System.out.println("molbackk boda schnell");
-                } else if(percentOfMax >= 50.0 && percentOfMax < 90.0) {
+                } else if (percentOfMax >= 50.0 && percentOfMax < 90.0) {
                     System.out.println("normal drive");
-                }else if(percentOfMax >=30.0 && percentOfMax < 50.0){
+                } else if (percentOfMax >= 30.0 && percentOfMax < 50.0) {
                     System.out.println("gutes Tempo");
-                }else if (percentOfMax >= 0.0 && percentOfMax < 30.0){
+                } else if (percentOfMax >= 0.0 && percentOfMax < 30.0) {
                     System.out.println("Gib Gas, du Schnecke");
                 }
             }
-            /*if ((this.getEngine().getMaxSpeed() > 0) && (this.getEngine().getMaxSpeed() <= 30)) {
-                System.out.println("You are driving qiute slowly - below 30 km/h.");
-            } else if ((this.getEngine().getMaxSpeed() > 30) && (this.getEngine().getMaxSpeed() <= 60)) {
-                System.out.println("You are driving guite fast, between 30 and 60 km/h");
-            } else if ((this.getEngine().getMaxSpeed() > 60) && (this.getEngine().getMaxSpeed() <= 100)) {
-                System.out.println("You are driving faster than 60 km/h");
-            }*/
-        } else{
+
+        } else {
             System.out.println("go fuel");
         }
     }
