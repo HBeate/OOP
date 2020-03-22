@@ -22,8 +22,8 @@ public class Car {
     private double range;
 
     //Konstructor - hier kommen die Pflichtfelder, wird bei jedem neuen Objekt nur am Anfang einmal aufgerufen
-    public Car(Engine engine, String brand, String model, String color, String serialNumber, double fuelCapacity, double fuelConsumption,
-               double fuelLevel, FuelTank fuelTank) {
+    public Car(Engine engine, String brand, String model, String color, String serialNumber, double fuelCapacity,
+               double fuelConsumption, double fuelLevel, FuelTank fuelTank) {
         this.engine = engine;
         this.brand = brand;
         this.model = model;
@@ -35,13 +35,9 @@ public class Car {
         this.mirrors = new ArrayList<>();
         this.tires = new ArrayList<>();
     }
-
     public void addMirror(RearMirror rearMirror) {
         this.mirrors.add(rearMirror);
-    }
-
-    public void addTire(Tire tire) {
-        this.tires.add(tire);
+        System.out.println("You added a mirror.");
     }
 
     public void addTires(Tire tire1, Tire tire2, Tire tire3, Tire tire4) {
@@ -49,13 +45,15 @@ public class Car {
         this.tires.add(tire2);
         this.tires.add(tire3);
         this.tires.add(tire4);
+        System.out.println("You added tires which are not all the same " + this.getTires());
     }
 
-    public void addFourTires(Tire tire) {
+    public void addFourIdenticalTires(Tire tire) {
         this.tires.add(tire);
         this.tires.add(tire);
         this.tires.add(tire);
         this.tires.add(tire);
+        System.out.println("You added 4 identical tires: " + this.getFourTires().get(0));
     }
 
     public List<RearMirror> getMirrors() {
@@ -70,7 +68,6 @@ public class Car {
         return tires;
     }
 
-    // Encapsulation
 
     public Engine getEngine() {
         return engine;
@@ -124,8 +121,9 @@ public class Car {
     public void drive(double speed) {
         double restLiters = fuelTank.getRestLiters();
         if (restLiters >= fuelConsumption) {
-            System.out.println("Ich bin ein " + this.brand + ", habe die Farbe " + this.color + " und habe " + this.getEngine().getHorsePower() + " horse power.");
-            System.out.println("I'm driving. (fuel level before driving) " + restLiters);
+            System.out.println("Ich bin ein " + this.brand + ", habe die Farbe " + this.color + " und habe " +
+                    this.getEngine().getHorsePower() + " PS.");
+            System.out.println("I'm driving und habe noch " + restLiters + " Liter " + this.getEngine().getType() );
             fuelTank.consumeLiters(fuelConsumption);
             restLiters = fuelTank.getRestLiters();
             System.out.println("Noch " + restLiters + "L verfügbar!");
@@ -137,7 +135,7 @@ public class Car {
                 if (percentOfMax >= 90.0) {
                     System.out.println("molbackk boda schnell");
                 } else if (percentOfMax >= 50.0 && percentOfMax < 90.0) {
-                    System.out.println("normal drive");
+                    System.out.println("zügig unterwegs");
                 } else if (percentOfMax >= 30.0 && percentOfMax < 50.0) {
                     System.out.println("gutes Tempo");
                 } else if (percentOfMax >= 0.0 && percentOfMax < 30.0) {
