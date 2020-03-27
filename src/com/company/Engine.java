@@ -2,22 +2,21 @@ package com.company;
 
 public class Engine {
 
-    public enum TYPE {DIESEL, GAS}
+    public enum FuelType {DIESEL, GAS}
 
-    private TYPE type;
+    private FuelType fuelType;
     private int horsePower;
     private int maxSpeed;
 
     //Alt + Einfg  -> shortcut für Constructor
-
-    public Engine(TYPE type, int horsePower, int maxSpeed) {
-        this.type = type;
+    public Engine(FuelType type, int horsePower, int maxSpeed) {
+        this.fuelType = type;
         this.horsePower = horsePower;
         this.maxSpeed = maxSpeed;
     }
 
-    public TYPE getType() {
-        return type;
+    public FuelType getFuelType() {
+        return fuelType;
     }
 
     public int getHorsePower() {
@@ -26,9 +25,5 @@ public class Engine {
 
     public int getMaxSpeed() {
         return maxSpeed;
-    }
-
-    public void setMaxSpeed(int maxSpeed) {
-        this.maxSpeed = maxSpeed;
     }
 }
